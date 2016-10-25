@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,minimal-ui"/>
+    <META NAME="keywords" CONTENT="vue-directive"/>
+    <title>vue-directive</title>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<div class="vuebox">
+    <a v-auto:click.a.b="click" data-url="http://www.baidu.com">测试连接</a>
+    <a v-auto="click2" data-url="http://www.baidu.com">测试连接</a>
+    <my-component></my-component>
+
+    <div v-inject:modal>
+        <h1>header1</h1>
+        <p>body2</p>
+        <p>footer3</p>
+    </div>
+    <div id="modal"></div>
+    <div v-inject:modal>
+        <h1>header</h1>
+        <p>body</p>
+        <p>footer</p>
+    </div>
+</div>
+<div class="vuebox">
+    <a v-auto:click.a.b="click" data-url="http://www.baidu.com">测试连接</a>
+    <a v-auto="click2" data-url="http://www.baidu.com">测试连接</a>
+    <my-component></my-component>
+
+    <div v-inject:modal1>
+        <h1>header1</h1>
+        <p>body2</p>
+        <p>footer3</p>
+    </div>
+    <div id="modal1"></div>
+    <div v-inject:modal1>
+        <h1>header</h1>
+        <p>body</p>
+        <p>footer</p>
+    </div>
+</div>
+<script type="text/javascript">
+    Vue.directive('auto', {
+        bind: function () {
+            var expr = this.expression;
+            var arg = this.arg;
+            if(arg == 'click') {
+
+            }
+            // 准备工作
+            // 例如，添加事件处理器或只需要运行一次的高耗任务
+        },
+        update: function (newValue, oldValue) {
+            // 值更新时的工作
+            // 也会以初始值为参数调用一次
+        },
+        unbind: function () {
+            // 清理工作
+            // 例如，删除 bind() 添加的事件监听器
+        }
+    })
+
+    // 在一个步骤中扩展与注册
+    Vue.component('my-component', {
+        template: '<div>{{url}}A custom component!</div>',
+        data : function() {
+            return {
+                url : "http://www.baidu.com"
+            }
+        }
+    })
+
+    var FragmentFactory = Vue.FragmentFactory
+    var remove = Vue.util.remove
+    var createAnchor = Vue.util.createAnchor
+
+    Vue.directive('inject', {
+        terminal: true,
+        bind: function () {
+            var container = document.getElementById(this.arg)
+            this.anchor = createAnchor('v-inject')
+            container.appendChild(this.anchor)
+            remove(this.el)
+            var factory = new FragmentFactory(this.vm, this.el)
+            this.frag = factory.create(this._host, this._scope, this._frag)
+            this.frag.before(this.anchor)
+        },
+        unbind: function () {
+            this.frag.remove()
+            remove(this.anchor)
+        }
+    })
+
+
+    var vm = new Vue({
+        el : ".vuebox",
+        data : {
+            url : "http://www.baidu.com",
+            click : function() {
+                console.log(1)
+            },
+            click2 : function () {
+                console.log(2)
+            }
+        }
+    });
+</script>
+</body>
+</html>

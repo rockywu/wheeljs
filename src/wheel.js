@@ -27,7 +27,13 @@ wheel.directive = function(name, options) {
 wheel.$async = function() {
 
 }
-new wheel();
+
+
+var a = document.getElementById("a");
+var b = a.children;
+forEach(b, function (v) {
+    console.log(v.attributes);
+});
 export default wheel;
 
 
