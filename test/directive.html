@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <script type="text/javascript" src="./cache/webpack.wheel.js"></script>
 </head>
 <body>
-    <div id="a">
-        <div vm-click="">
-            <div class="a1"></div>
-            <div class="a2"></div>
-        </div>
-        <div vm-back="">
-            <div class="a1">
-                <div class="a2"></div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript" src="./cache/webpack.wheel.js"></script>
+   <div v-form="testform" form-action="./" form-metch="get" form-type="ajax">
+       <div>
+           <input type="text" v-input="name" name="name" value="name-text"/>
+       </div>
+       <div>
+            <input type="password" v-input="pwd" name="pwd" value="pwd-text"/>
+       </div>
+       <div>
+           <input type="submit" form-submit value="input提交"/>
+       </div>
+       <div>
+           <button form-submit>button</button>
+       </div>
+       <div>
+           <div form-submit>div提交</div>
+       </div>
+   </div>
 </body>
 </html>

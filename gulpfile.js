@@ -22,7 +22,7 @@ gulp.task("watch", function() {
 });
 gulp.task("dev", function() {
     rollup.rollup({
-        entry: './src/wheel.js',
+        entry: './src/index.js',
         plugins: [
             babel({
                 exclude: 'node_modules/**'
@@ -44,7 +44,7 @@ gulp.task("dev", function() {
 });
 gulp.task("normal", function() {
     rollup.rollup({
-        entry: './src/wheel.js',
+        entry: './src/index.js',
         plugins: [
             babel({
                 exclude: 'node_modules/**'
@@ -62,17 +62,11 @@ gulp.task("normal", function() {
             banner: banner,
             dest: 'dist/wheel.umd.js'
         });
-        bundle.write({
-            format: 'iife',
-            moduleName: 'Wheel',
-            banner: banner,
-            dest: 'dist/wheel.js'
-        });
     });
 });
 gulp.task("package", function() {
     rollup.rollup({
-        entry: './src/wheel.js',
+        entry: './src/index.js',
         plugins: [
             babel({
                 exclude: 'node_modules/**'
@@ -96,12 +90,6 @@ gulp.task("package", function() {
             moduleName: 'Wheel',
             sourceMap: true,
             dest: 'dist/wheel.umd.min.js'
-        });
-        bundle.write({
-            format: 'iife',
-            moduleName: 'Wheel',
-            sourceMap: true,
-            dest: 'dist/wheel.min.js'
         });
     }).catch(function(e) {
         logger.error(e);

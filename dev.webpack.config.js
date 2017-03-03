@@ -6,7 +6,7 @@ var path = require("path");
 var webpack = require('webpack');
 module.exports = {
     entry: {
-        main: "./src/wheel.js",
+        main: "./src/index.js",
     },
     module: { //声明模块解析器
         loaders: [

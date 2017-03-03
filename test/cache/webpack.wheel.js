@@ -50,40 +50,17 @@
 	  value: true
 	});
 
-	var _index = __webpack_require__(1);
+	var _Wheel = __webpack_require__(1);
+
+	var _Wheel2 = babelHelpers.interopRequireDefault(_Wheel);
+
+	var _directive = __webpack_require__(2);
 
 	/**
-	 * 基础类
+	 * Created by rocky on 16/10/27.
 	 */
-	function wheel() {
-	  this.$scope = {}; //作用域
-	  this.noop = _index.noop;
-	  this.forEach = _index.forEach;
-	}
-
-	/**
-	 * 当前已有指令
-	 */
-	/**
-	 * Created by rocky on 16/10/17.
-	 * wheel声明
-	 */
-	wheel.directives = {};
-
-	wheel.directive = function (name, options) {
-	  wheel.directives[name] = options;
-	};
-	/**
-	 * 动态加载捆绑指令
-	 */
-	wheel.$async = function () {};
-
-	var a = document.getElementById("a");
-	var b = a.children;
-	(0, _index.forEach)(b, function (v) {
-	  console.log(v.attributes);
-	});
-	exports.default = wheel;
+	(0, _directive.initDirective)(_Wheel2.default);
+	exports.default = _Wheel2.default;
 
 /***/ },
 /* 1 */
@@ -95,7 +72,80 @@
 	  value: true
 	});
 
-	var _base = __webpack_require__(2);
+	var _parser = __webpack_require__(3);
+
+	var _parser2 = babelHelpers.interopRequireDefault(_parser);
+
+	var _document = __webpack_require__(6);
+
+	var _document2 = babelHelpers.interopRequireDefault(_document);
+
+	/**
+	 * Created by rocky on 16/10/27.
+	 */
+	function Wheel() {}
+	var directives = Wheel.directives = {};
+
+	(0, _parser2.default)(_document2.default.body);
+
+	exports.default = new Wheel();
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.initDirective = initDirective;
+	/**
+	 * Created by rocky on 16/10/17.
+	 * 声明指令行为
+	 */
+	function initDirective(Wheel) {
+	    Wheel.directive = function (name, configures) {
+	        if (!name || directives[name]) {
+	            return false;
+	        }directives[name] = configures;
+	        return true;
+	    };
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = parser;
+
+	var _index = __webpack_require__(4);
+
+	function parser(el) {
+	    console.log(el);
+	    (0, _index.forEach)(directives, function (v, k) {
+	        console.log(v, k);
+	    });
+	} /**
+	   * Created by rocky on 16/10/27.
+	   */
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _base = __webpack_require__(5);
 
 	Object.keys(_base).forEach(function (key) {
 	  if (key === "default") return;
@@ -107,21 +157,9 @@
 	  });
 	});
 
-	var _dom = __webpack_require__(3);
-
-	Object.keys(_dom).forEach(function (key) {
-	  if (key === "default") return;
-	  Object.defineProperty(exports, key, {
-	    enumerable: true,
-	    get: function get() {
-	      return _dom[key];
-	    }
-	  });
-	});
-
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/* 5 */
+/***/ function(module, exports) {
 
 	"use strict";
 
@@ -130,19 +168,13 @@
 	});
 	exports.noop = noop;
 	exports.forEach = forEach;
-
-	var _regExp = __webpack_require__(4);
-
-	var _wheel = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../wheel\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _wheel2 = babelHelpers.interopRequireDefault(_wheel);
-
+	/**
+	 * Created by rocky on 16/10/17.
+	 * 基础工具
+	 */
 	/**
 	 * 空执行函数
 	 * @return void
-	 */
-	/**
-	 * Created by rocky on 16/10/17.
 	 */
 	function noop() {}
 
@@ -211,17 +243,7 @@
 	//}
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by rocky on 16/10/17.
-	 * 定义dom操作
-	 */
-	"use strict";
-
-/***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -230,10 +252,15 @@
 	  value: true
 	});
 	/**
-	 * 正则表达式
-	 * Created by rocky on 16/10/20.
+	 * export document
+	 * Created by rocky on 16/10/25.
 	 */
-	var rWord = exports.rWord = /[^, ]+/g;
+
+	/**
+	 * document
+	 * @type {HTMLDocument}
+	 */
+	exports.default = window.document;
 
 /***/ }
 /******/ ]);

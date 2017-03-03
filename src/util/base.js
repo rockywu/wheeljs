@@ -1,9 +1,7 @@
 /**
  * Created by rocky on 16/10/17.
+ * 基础工具
  */
-import { rWord } from "./regExp";
-import wheel from "../wheel";
-
 /**
  * 空执行函数
  * @return void
